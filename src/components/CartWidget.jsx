@@ -9,6 +9,7 @@ const CartWidget = () => {
     >
       <span
         style={{
+          padding: "2rem",
           fontSize: "1.5rem",
           color: "#333",
         }}
