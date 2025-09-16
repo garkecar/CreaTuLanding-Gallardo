@@ -16,7 +16,7 @@ const Navbar = () => {
     >
       <div>
         <Link to="/" style={{ textDecoration: "none" }}>
-          <h1 style={{ margin: 0, color: "darkgreen" }}>La Tienda</h1>
+          <h1 style={{ margin: 0, color: "darkgreen" }}>LA TIENDA</h1>
         </Link>
       </div>
       <div style={{ display: "flex", gap: "3.5rem" }}>

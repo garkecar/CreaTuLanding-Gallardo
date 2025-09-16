@@ -1,93 +1,45 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ItemCount from "./ItemCount";
+import { useCart } from "../context/CartContext";
 
 const ItemDetail = ({ product }) => {
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
+
   const handleAddToCart = (quantity) => {
-    console.log(`Agregado al carrito: ${quantity} unidades de ${product.name}`);
+    addToCart(product, quantity);
+    setAdded(true);
   };
 
   return (
     <div
       style={{
-        maxWidth: "800px",
-        margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "3rem",
-        alignItems: "start",
+        padding: "2rem",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <div style={{ textAlign: "center" }}>
-        <div
-          style={{
-            fontSize: "8rem",
-            marginBottom: "1rem",
-            padding: "2rem",
-            backgroundColor: "#f8f9fa",
-            borderRadius: "8px",
-          }}
-        >
-          {product.image}
-        </div>
-      </div>
+      <h1>{product.image}</h1>
+      <h2>{product.name}</h2>
 
-      <div>
-        <Link
-          to="/"
-          style={{
-            color: "#007bff",
-            textDecoration: "none",
-            fontSize: "0.9rem",
-            marginBottom: "1rem",
-            display: "inline-block",
-          }}
-        >
-          ← Volver al catálogo
-        </Link>
+      <p>{product.description}</p>
+      <h3>${product.price}</h3>
+      <p>Stock: {product.stock}</p>
 
-        <h1
-          style={{
-            color: "#333",
-            marginBottom: "1rem",
-            fontSize: "2.5rem",
-          }}
-        >
-          {product.name}
-        </h1>
-
-        <p
-          style={{
-            color: "#666",
-            fontSize: "1.1rem",
-            lineHeight: "1.6",
-            marginBottom: "1.5rem",
-          }}
-        >
-          {product.description}
-        </p>
-
-        <div
-          style={{
-            fontSize: "2rem",
-            color: "#007bff",
-            fontWeight: "bold",
-            marginBottom: "1rem",
-          }}
-        >
-          ${product.price}
-        </div>
-
-        <p
-          style={{
-            color: "#888",
-            marginBottom: "2rem",
-          }}
-        >
-          Stock disponible: {product.stock} unidades
-        </p>
-
+      {!added ? (
         <ItemCount stock={product.stock} initial={1} onAdd={handleAddToCart} />
-      </div>
+      ) : (
+        <div style={{ marginTop: "1rem" }}>
+          <Link to="/cart">
+            <button>Ir al carrito</button>
+          </Link>
+          <Link to="/">
+            <button>Seguir comprando</button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

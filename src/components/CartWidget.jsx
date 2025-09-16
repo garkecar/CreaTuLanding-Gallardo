@@ -1,22 +1,19 @@
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
 const CartWidget = () => {
+  const { cartTotal } = useCart();
+
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-      }}
+    <Link
+      to="/cart"
+      style={{ textDecoration: "none", display: "flex", alignItems: "center" }}
     >
-      <span
-        style={{
-          padding: "2rem",
-          fontSize: "1.5rem",
-          color: "#333",
-        }}
-      >
-        🛒
-      </span>
-    </div>
+      <span style={{ fontSize: "1.5rem" }}>🛒</span>
+      {cartTotal > 0 && (
+        <span style={{ marginLeft: "0.5rem" }}>{cartTotal}</span>
+      )}
+    </Link>
   );
 };
 
